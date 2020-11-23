@@ -6,13 +6,14 @@ RUN yum makecache
 RUN yum update -y
 
 # Install Development Tools
+RUN yum install wget -y
 RUN yum groupinstall "Development Tools" -y
 RUN yum install cmake -y
 
 # Copy and install Miniconda
-RUN mkdir -p /root/opt
-COPY Miniforge3-Linux-aarch64.sh /root/opt/Miniforge3-Linux-aarch64.sh
-RUN bash /root/opt/Miniforge3-Linux-aarch64.sh -b -p $HOME/miniforge
+RUN mkdir -p /root/opt && cd /root/opt
+RUN wget https://github.com/conda-forge/miniforge/releases/download/4.9.0-4/Miniforge3-4.9.0-4-Linux-aarch64.sh
+RUN bash /root/opt/Miniforge3-4.9.0-4-Linux-aarch64.sh -b -p $HOME/miniforge
 RUN $HOME/miniforge/bin/conda init bash
 
 # Create conda environment for compilation
