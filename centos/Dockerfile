@@ -17,7 +17,7 @@ RUN bash /root/opt/Miniforge3-4.9.0-4-Linux-aarch64.sh -b -p $HOME/miniforge
 RUN $HOME/miniforge/bin/conda init bash
 
 # Create conda environment for compilation
-RUN conda create -y -d --name p37 python=3.7 \
-    conda activate p37
+# RUN conda create -y -d --name p37 python=3.7 \
+#     conda activate p37
 
 CMD [ "/bin/bash" ]

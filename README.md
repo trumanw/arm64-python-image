@@ -2,7 +2,7 @@
 
 ## Intuition
 
-The image is used as the base image to compile or test python based scientific library or toolkits.
+The image is used as the base image to compile or test scientific toolkits on ARM64 architecture.
 
 Base image: arm64v8/centos
 Conda version: Miniforge3-Linux-aarch64
@@ -26,7 +26,9 @@ aarch64
 
 For more details, please check [multiarch/qemu-user-static](https://github.com/multiarch/qemu-user-static).
 
-### 2. Change YUM sources:
+## Advanced Usage
+
+### 1. Change YUM sources:
 
 Change to Aliyun YUM source:
 ```
@@ -36,10 +38,16 @@ yum makecache
 yum update -y
 ```
 
-### 3. Extension for PSI4 Dockerfile:
+### 2. Extension for PSI4 Dockerfile:
 
 Append the lines below in the dockerfile:
 ```
+FROM [arm64-base-image]
+
+# Create conda env
+RUN conda create -y -d --name p37 python=3.7 \
+    conda activate p37
+
 # Install BLAS and LAPACK via conda
 # conda install mkl-devel but not found for aarch
 RUN conda install -y \
@@ -48,8 +56,8 @@ RUN conda install -y \
         numpy \
         networkx \
         pint \
-        msgpack-python \
-        numpy
+        msgpack-python
+        
 # Install pydantic via setup.py
 RUN git clone -b 'v1.7.2' --single-branch --depth 1 https://github.com/samuelcolvin/pydantic.git
 RUN cd pydantic && python setup.py install
