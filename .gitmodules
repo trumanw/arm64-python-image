@@ -1,0 +1,9 @@
+[submodule "psi4/psi4"]
+    path = psi4/psi4
+    url = https://github.com/psi4/psi4.git
+    branch = master
+[submodule "samuelcolvin/pydantic"]
+    path = samuelcolvin/pydantic
+    url = https://github.com/samuelcolvin/pydantic.git
+    branch = master
+    
